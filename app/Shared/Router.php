@@ -15,8 +15,8 @@ class Router
             $routePath = str_replace('/', '\/', $routePath);
 
             if (preg_match("#^$routePath$#", $requestPath, $matches) && $route['method'] === $requestMethod) {
-                array_shift($matches); // Removendo a primeira correspondência que é o caminho completo
-                $parameters = [$matches[0]]; // Pegando apenas o primeiro parâmetro capturado
+                array_shift($matches);
+                $parameters = [$matches[0]];
                 return ['controller' => $route['controller'], 'action' => $route['action'], 'parameters' => $parameters];
             }
         }

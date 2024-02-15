@@ -88,8 +88,6 @@ class UserModel extends Connect
 
     function updateUser($id, User $user)
     {
-        // var_dump($user);
-        // die();
         $sql = "UPDATE users 
                    SET name = :name,
                        email = :email,
