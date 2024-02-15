@@ -14,14 +14,47 @@ class UserModel extends Connect
 
     function getAll()
     {
-        $sqlQuery = $this->connection->query("SELECT * FROM $this->table");
+        $sqlQuery = $this->connection->query(
+            "SELECT users.id as id,
+                    users.name as name,
+                    users.email as email,
+                    a.name as street,
+                    a.`number` as number,
+                    a.zipCode as zipCode,
+                    c.name as city,
+                    s.name as state
+               FROM users
+              INNER JOIN address a 
+                 ON a.id = users.address_id 
+              INNER JOIN city c
+                 ON c.id = a.id_city 
+              INNER JOIN state s 
+                 ON s.id = c.id_state"
+        );
         $resultQuery = $sqlQuery->fetchAll();
+
         return $resultQuery;
     }
 
     function getUserById(int $id)
     {
-        $sql = "SELECT * FROM $this->table where id = :id";
+        $sql = "SELECT users.id as id,
+                    users.name as name,
+                    users.email as email,
+                    a.name as street,
+                    a.`number` as number,
+                    a.zipCode as zipCode,
+                    c.name as city,
+                    s.name as state
+               FROM users
+              INNER JOIN address a 
+                 ON a.id = users.address_id 
+              INNER JOIN city c
+                 ON c.id = a.id_city 
+              INNER JOIN state s 
+                 ON s.id = c.id_state
+              WHERE users.id = :id";
+
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(':id', $id);
         $statement->execute();

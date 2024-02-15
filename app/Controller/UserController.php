@@ -1,19 +1,23 @@
 <?php
+require_once('./Controller/Controller.php');
 require_once('./Model/UserModel.php');
 require_once('./Shared/HttpResponse.php');
 
-class UserController
+class UserController extends Controller
 {
     private $userModel;
 
     function __construct()
     {
+        parent::__construct();
         $this->userModel = new UserModel();
     }
 
     function getAll()
     {
         $users = $this->userModel->getAll();
+
+        $users = $this->helper->utf8EncodeDeep($users);
 
         if ($users) {
             $response = new HttpResponse(200, $users);
@@ -46,6 +50,7 @@ class UserController
     public function getUserById(int $id)
     {
         $user = $this->userModel->getUserById($id);
+        $user = $this->helper->utf8EncodeDeep($user);
         if ($user) {
             $response = new HttpResponse(200, $user);
         } else {

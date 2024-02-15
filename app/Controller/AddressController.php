@@ -1,13 +1,15 @@
 <?php
+require_once('./Controller/Controller.php');
 require_once('./Model/AddressModel.php');
 require_once('./Shared/HttpResponse.php');
 
-class AddressController
+class AddressController extends Controller
 {
     private $addressModel;
 
     function __construct()
     {
+        parent::__construct();
         $this->addressModel = new AddressModel();
     }
 
