@@ -82,4 +82,14 @@ class UserModel extends Connect
 
         return $statement->execute();
     }
+
+    public function deleteUser($id)
+    {
+        $sql = "DELETE from users  WHERE id = :id";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':id', $id);
+
+        return $statement->execute();
+    }
 }

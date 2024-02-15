@@ -1,14 +1,14 @@
 <?php
 require_once('./Config/connect.php');
 
-class AddressModel extends Connect
+class CityModel extends Connect
 {
     private $table;
 
     function __construct()
     {
         parent::__construct();
-        $this->table = 'address';
+        $this->table = 'city';
     }
 
     function getAll()

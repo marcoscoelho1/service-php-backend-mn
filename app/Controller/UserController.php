@@ -13,8 +13,15 @@ class UserController
 
     function getAll()
     {
-        $result = $this->userModel->getAll();
-        var_dump($result);
+        $users = $this->userModel->getAll();
+
+        if ($users) {
+            $response = new HttpResponse(200, $users);
+        } else {
+            $response = new HttpResponse(500, $users);
+        }
+
+        return $response;
     }
 
     public function createUser(array $userData)
@@ -62,6 +69,19 @@ class UserController
             $response = new HttpResponse(200, ["message" => "updated with success"]);
         } else {
             $response = new HttpResponse(500, ["message" => "error on update"]);
+        }
+
+        return $response;
+    }
+
+    public function deleteUser($id)
+    {
+        $delete = $this->userModel->deleteUser($id);
+
+        if ($delete) {
+            $response = new HttpResponse(200, ["message" => "deleted with success"]);
+        } else {
+            $response = new HttpResponse(500, ["message" => "error on create"]);
         }
 
         return $response;

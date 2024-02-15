@@ -1,14 +1,31 @@
 <?php
 require_once('./Shared/Router.php');
 require_once('./Controller/UserController.php');
+require_once('./Controller/AddressController.php');
+require_once('./Controller/CityController.php');
+require_once('./Controller/StateController.php');
 
 $userController = new UserController();
+$addressController = new AddressController();
+$cityController = new CityController();
+$stateController = new StateController();
 $router = new Router();
 
 // ROTAS
-$router->addRoute('/users/{id}', 'GET', $userController, 'getUserById');
+$router->addRoute('/users', 'GET', $userController, 'getAll');
 $router->addRoute('/users', 'POST', $userController, 'createUser');
+$router->addRoute('/users/{id}', 'GET', $userController, 'getUserById');
 $router->addRoute('/users/{id}', 'PUT', $userController, 'updateUser');
+$router->addRoute('/users/{id}', 'DELETE', $userController, 'deleteUser');
+
+$router->addRoute('/address', 'GET', $addressController, 'getAll');
+$router->addRoute('/address/{id}', 'GET', $addressController, 'getById');
+
+$router->addRoute('/city', 'GET', $cityController, 'getAll');
+$router->addRoute('/city/{id}', 'GET', $cityController, 'getById');
+
+$router->addRoute('/state', 'GET', $stateController, 'getAll');
+$router->addRoute('/state/{id}', 'GET', $stateController, 'getById');
 
 $requestPath = $_SERVER['REQUEST_URI'];
 $requestMethod = $_SERVER['REQUEST_METHOD'];
