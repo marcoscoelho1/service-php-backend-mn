@@ -1,5 +1,5 @@
 <?php
-require_once('./Helpers/Router.php');
+require_once('./Shared/Router.php');
 require_once('./Controller/UserController.php');
 
 $userController = new UserController();
