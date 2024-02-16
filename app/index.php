@@ -5,9 +5,6 @@ require_once('./Controller/AddressController.php');
 require_once('./Controller/CityController.php');
 require_once('./Controller/StateController.php');
 
-// var_dump($_SERVER['REQUEST_METHOD']);
-// die();
-
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
 
