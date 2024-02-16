@@ -5,6 +5,20 @@ require_once('./Controller/AddressController.php');
 require_once('./Controller/CityController.php');
 require_once('./Controller/StateController.php');
 
+// var_dump($_SERVER['REQUEST_METHOD']);
+// die();
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+        header("Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS");
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+        header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+    // header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
+    exit(0);
+}
+
 $userController = new UserController();
 $addressController = new AddressController();
 $cityController = new CityController();
@@ -51,9 +65,11 @@ if ($route !== null) {
         }
 
         if ($response) {
+            header('Content-Type: application/json');
             http_response_code($response->getStatusCode());
             echo $response->getFormatedResponse();
         } else {
+            header('Content-Type: application/json');
             http_response_code(500);
             echo json_encode(['message' => 'Operation failed']);
         }
